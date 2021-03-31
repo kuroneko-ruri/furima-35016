@@ -1,24 +1,111 @@
-# README
+## Usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column             | Type    | options     |
+|--------------------|---------|-------------|
+| nickname           | string  | null: false |
+| encrypted_password | string  | null: false |
+| first_name         | string  | null: false |
+| last_name          | string  | null: false |
+| first_name_kana    | string  | null: false |
+| last_name_kana     | string  | null: false |
+| barth_day          | integer | null: false |
+| post_code          | integer | null: false |
+| prefecture         | string  | null: false |
+| city               | string  | null: false |
+| address            | string  | null: false |
+| building_name      | string  |             |
+| phone_number       | integer | null: false |
 
-Things you may want to cover:
+Association
 
-* Ruby version
+- has_many :items
+- has_one :credit_card, dependent: :destroy
+- belongs_to_active_hash :prefecture
 
-* System dependencies
+## cardテーブル
 
-* Configuration
+| Column                | Type    | options     |
+|-----------------------|---------|-------------|
+| card_number           | integer | null: false |
+| validity_period_month | integer | null: false |
+| validity_period_year  | integer | null: false |
+| security_code         | integer | null: false |
 
-* Database creation
+Association
 
-* Database initialization
+- belongs_to :user
 
-* How to run the test suite
+## itemsテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column           | Type       | Options                        |
+|------------------|------------|--------------------------------|
+| items_name       | string     | null: false                    |
+| price            | integer    | null: false                    |
+| description      | text       | null: false                    |
+| category         | string     | null: false  foreign_key: true |
+| items_ condition | string     | null: false  foreign_key: true |
+| cost             | string     | null: false  foreign_key: true |
+| shipping_area    | string     | null: false  foreign_key: true |
+| shipping_days    | string     | null: false  foreign_key: true |
+| image            | string     | null: false                    |
+| user_id          | references | null: false, foreign_key: true |
 
-* Deployment instructions
+Association
 
-* ...
+- belongs_to :user
+- belongs_to_active_hash :category
+- belongs_to_active_hash :items_condition
+- belongs_to_active_hash :cost
+- belongs_to_active_hash :prefecture
+- belongs_to_active_hash :shipping_days
+
+## categoryテーブル
+
+| Column | Type   | options     |
+|--------|--------|-------------|
+| name   | string | null: false |
+
+Association
+
+- has_many :items
+
+## items_conditionテーブル
+
+| Column | Type   | options     |
+|--------|--------|-------------|
+| value  | string | null: false |
+
+Association
+
+- has_many :items
+
+## costテーブル
+
+| Column | Type   | options     |
+|--------|--------|-------------|
+| value  | string | null: false |
+
+Association
+
+- has_many :items
+
+## prefectureテーブル
+
+| Column | Type   | options     |
+|--------|--------|-------------|
+| name   | string | null: false |
+
+Association
+
+- has_many :items
+- hus_many :uses
+
+## shipping_daysテーブル
+
+| Column | Type   | options     |
+|--------|--------|-------------|
+| value  | string | null: false |
+
+Association
+
+- has_many :items
