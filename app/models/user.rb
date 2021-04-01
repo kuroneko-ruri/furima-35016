@@ -6,11 +6,13 @@ class User < ApplicationRecord
   has_many :items
   has_many :purchase
 
-  validates :nickname,        presence: true
-  validates :first_name,      presence: true
-  validates :last_name,       presence: true
-  validates :first_name_kana, presence: true
-  validates :last_name_kana,  presence: true
-  validates :birth_day,       presence: true
-  validates :email,           presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :first_name, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "Full-width characters"}
+    validates :last_name, format: {with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "Full-width characters"}
+    validates :first_name_kana, format: {with: /\A[ァ-ヶー－]+\z/, message: " Full-width katakana characters"}
+    validates :last_name_kana, format: {with: /\A[ァ-ヶー－]+\z/, message: "Full-width katakana characters"}
+    validates :encrypted_password,:password,length:{minimum:6},format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/, message: "Include both letters and numbers"}
+    validates :birth_day
+   end
 end
