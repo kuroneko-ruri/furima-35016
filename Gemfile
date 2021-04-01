@@ -56,3 +56,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development do
   gem 'rubocop', require: false
 end
+
+gem 'pry-rails'
+gem 'devise'
+gem 'rspec-rails', '~> 4.0.0'
