@@ -1,8 +1,11 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   def index
     @purchase_order = PurchaseOrder.new
     @item = Item.find(params[:item_id])
+    if current_user == @item.user
+      redirect_to root_path
+    end
   end
 
   def create
@@ -32,9 +35,5 @@ class PurchasesController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
-  end
-
-  def unless
-    redirect_to root_path if @item.user_id != current_user.id
   end
 end
