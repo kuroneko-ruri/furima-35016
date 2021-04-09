@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   def index
     @purchase_order = PurchaseOrder.new
     @item = Item.find(params[:item_id])
@@ -31,5 +32,9 @@ class PurchasesController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def unless
+    redirect_to root_path if @item.user_id != current_user.id
   end
 end
