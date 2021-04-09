@@ -46,10 +46,10 @@ Association
 
 - belongs_to :user
 - belongs_to :item
-- has_one :address
+- has_one :order
 
-## addressesテーブル
-| Column             | Type    | options                           |
+## orderテーブル
+| Column             | Type options                           |
 |--------------------|---------|-----------------------------------|
 | post_code          | string  | null: false                       |
 | prefecture_id      | integer | null: false                       |
