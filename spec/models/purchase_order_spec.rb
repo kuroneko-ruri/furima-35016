@@ -48,10 +48,25 @@ RSpec.describe PurchaseOrder, type: :model do
         @purchase_order.valid?
         expect(@purchase_order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが10桁以下だと購入できない' do
-        @purchase_order.phone_number = "0901234567"
+      it 'phone_numberが10桁か11桁じゃないと購入できない' do
+        @purchase_order.phone_number = "090123"
         @purchase_order.valid?
         expect(@purchase_order.errors.full_messages).to include("Phone number Input only number")
+      end
+      it 'phone_numberが英数混合だと購入できない' do
+        @purchase_order.phone_number = "12345abcde"
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("Phone number Input only number")
+      end
+      it 'user_idが空では購入できない' do
+        @purchase_order.user_id = nil
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では購入できない' do
+        @purchase_order.item_id = nil
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("Item can't be blank")
       end
       it "tokenが空では登録できないこと" do
         @purchase_order.token = nil
