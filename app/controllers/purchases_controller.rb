@@ -40,11 +40,13 @@ class PurchasesController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
-end
 
-def move_to_index
-  if current_user == @item.user
-    if @item.purchase.present?
-      redirect_to root_path
+
+  def move_to_index
+    if current_user == @item.user
+      if @item.purchase.present?
+        redirect_to root_path
+      end
     end
+  end
 end
