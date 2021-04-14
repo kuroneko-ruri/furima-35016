@@ -2,6 +2,7 @@ class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
   before_action :move_to_index
+  before_action :unless
   def index
     @purchase_order = PurchaseOrder.new
     if current_user == @item.user
@@ -41,12 +42,17 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-
   def move_to_index
     if current_user == @item.user
       if @item.purchase.present?
         redirect_to root_path
       end
+    end
+  end
+
+  def unless
+    if @item.user_id != current_user.id || @item.purchase.present?
+      redirect_to root_path
     end
   end
 end
