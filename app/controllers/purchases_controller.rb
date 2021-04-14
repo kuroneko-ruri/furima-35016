@@ -4,7 +4,7 @@ class PurchasesController < ApplicationController
   before_action :move_to_index
   def index
     @purchase_order = PurchaseOrder.new
-    if current_user
+    if current_user == @item.user
       redirect_to root_path
     end
   end
