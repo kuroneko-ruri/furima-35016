@@ -144,10 +144,7 @@
               </h3>
               <div class='item-price'>
                 <span><%= item.price %>円<br><%= item.cost.name %></span>
-                <div class='star-btn'>
-                  <%= image_tag "star.png", class:"star-icon" %>
-                  <span class='star-count'>0</span>
-                </div>
+                <h3>いいね件数: <%= item.likes.count %></h3>
               </div>
             </div>
             <% end %>
