@@ -70,8 +70,16 @@
     </table>
     <div class="option">
       <div class="favorite-btn">
-        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
-        <span>お気に入り 0</span>
+        <h3>いいね件数: <%= @item.likes.count %></h3>
+        <% if user_signed_in? %>
+          <% if current_user.id != @item.user_id %>
+            <% if current_user.already_liked?(@item) %>
+              <%= button_to '取り消す', item_likes_path(@item), method: :delete %>
+            <% else %>
+              <%= button_to 'いいね', item_likes_path(@item) %>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
       <div class="report-btn">
         <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>

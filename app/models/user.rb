@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :items
   has_many :purchase
+  has_many :likes, dependent: :destroy
 
   with_options presence: true do
     validates :nickname
@@ -13,5 +14,9 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 6 },
                          format: { with: /\A(?=.*[a-z])(?=.*\d)[a-z\d]+\z/i, message: 'に文字と数字の両方を含めてください' }
     validates :birth_day
+  end
+
+  def already_liked?(item)
+    self.likes.exists?(item_id: item.id)
   end
 end
