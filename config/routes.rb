@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     resources :purchases, only: [:index, :create]
     resource :likes, only: [:create, :destroy]
   end
-
+  resources :users, only: :show
 end
