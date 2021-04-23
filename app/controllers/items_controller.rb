@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
 
   def show
     @like = Like.new
+    @purchase = Purchase.find(params[:id])
   end
 
   def edit
